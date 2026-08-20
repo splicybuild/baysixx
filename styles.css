@@ -187,3 +187,16 @@
     margin-top:4px!important;
   }
 }
+
+/* v8 — Japanese-inspired Ronin Tee product */
+.shop-grid-four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.shop-grid-four .product-image.shop{height:420px}
+@media(max-width:1250px){.shop-grid-four{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:680px){.shop-grid-four{grid-template-columns:1fr}.shop-grid-four .product-image.shop{height:auto;aspect-ratio:1/1}}
+/* v10 Ronin product fixes */
+.product-card.ronin-card .product-photo{object-fit:contain!important;background:#080808}
+.product-card.ronin-card .product-image.shop{background:#080808}
+
+/* v11 — Ronin clean treatment: Japanese influence through imagery, no character text */
+.add-bag.notify-me{background:#d71920!important;color:#fff!important;box-shadow:none!important}
+.add-bag.notify-me:hover{background:#ef2028!important}
