@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050505">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
+<link rel="stylesheet" href="baysixx.css">
+<title>COMING SOON — BAYSIXX</title>
+</head>
+<body id="top" class="page-only">
+<header class="site-header">
+  <div class="header-wrap">
+    <a class="brand" href="index.html" aria-label="BAYSIXX home"><img src="assets/wordmark.png" alt="BAYSIXX"></a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="index.html">HOME</a>
+      <a href="shop.html">SHOP</a>
+      <a class="active" href="coming-soon.html" aria-current="page">COMING SOON</a>
+      <a href="about.html">ABOUT</a>
+    </nav>
+    <div class="tools">
+      <button class="tool" onclick="toast('SEARCH COMING SOON')" aria-label="Search">⌕</button>
+      <button class="tool" onclick="toast('ACCOUNT COMING SOON')" aria-label="Account">♙</button>
+      <button class="tool bag-tool" id="bagButton" aria-label="Open bag">▢<span class="bag-count" id="bagCount">0</span></button>
+      <button class="mobile-menu-btn" id="mobileMenuButton" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="index.html">HOME</a>
+    <a href="shop.html">SHOP</a>
+    <a class="active" href="coming-soon.html" aria-current="page">COMING SOON</a>
+    <a href="about.html">ABOUT</a>
+    <button class="mobile-menu-utility" type="button" onclick="toast('SEARCH COMING SOON')">SEARCH</button>
+    <button class="mobile-menu-utility" type="button" onclick="toast('ACCOUNT COMING SOON')">ACCOUNT</button>
+  </nav>
+</header>
+<main>
+<section id="coming">
+    <div class="section coming">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow"><b>02</b> / NEXT DROP</p>
+          <h2>COMING<br>SOON</h2>
+        </div>
+        <p>The next chapter of BAYSIXX is coming. Four statement graphics, darker energy and a harder edge — built to push the brand beyond Drop 001. Black tees. Selected hoodies. Landing soon.</p>
+      </div>
+      <div class="cards">
+        <a class="card product-trigger" href="#" data-product="ronin-tee">
+          <div class="card-image"><img src="assets/coming-ronin.png" alt="Ronin mockup"></div>
+          <div class="card-meta"><span class="badge">COMING SOON</span><h3>RONIN TEE</h3><p>£28.00 · COMING SOON</p></div>
+        </a>
+        <a class="card product-trigger" href="#" data-product="samurai-hoodie">
+          <div class="card-image"><img src="assets/coming-samurai-princess.png" alt="Samurai Princess hoodie mockup"></div>
+          <div class="card-meta"><span class="badge">COMING SOON</span><h3>SAMURAI PRINCESS HOODIE</h3><p>£35.00 · COMING SOON</p></div>
+        </a>
+        <a class="card product-trigger" href="#" data-product="temple-bw-tee">
+          <div class="card-image"><img src="assets/coming-temple-bw.png" alt="Temple Moon black and white mockup"></div>
+          <div class="card-meta"><span class="badge">COMING SOON</span><h3>TEMPLE MOON B/W TEE</h3><p>£28.00 · COMING SOON</p></div>
+        </a>
+        <a class="card product-trigger" href="#" data-product="temple-colour-hoodie">
+          <div class="card-image"><img src="assets/coming-temple-colour-fixed.png" alt="Temple Moon colour hoodie mockup"></div>
+          <div class="card-meta"><span class="badge">COMING SOON</span><h3>TEMPLE MOON COLOUR HOODIE</h3><p>£35.00 · COMING SOON</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer>
+  <div class="footer">
+    <div>
+      <a class="brand" href="index.html"><img src="assets/wordmark.png" alt="BAYSIXX"></a>
+      <p>© 2026 BAYSIXX. ALL RIGHTS RESERVED.</p>
+    </div>
+    <div class="footer-links">
+      <div><strong>SHOP</strong><a href="shop.html">Available Now</a><a href="coming-soon.html">Coming Soon</a></div>
+      <div><strong>COLLECTIONS</strong><a href="shop.html">Drop 001</a><a href="coming-soon.html">Next Drop</a></div>
+      <div><strong>ABOUT</strong><a href="about.html">Brand Philosophy</a></div>
+      <div><strong>CONTACT</strong><a href="#" onclick="toast('CONTACT');return false;">Contact</a><a href="#" onclick="toast('SHIPPING INFO');return false;">Shipping</a></div>
+    </div>
+  </div>
+</footer>
+
+<div class="product-modal-backdrop" id="productBackdrop"></div>
+<section class="product-modal" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalProductName">
+  <div class="product-modal-media"><img id="modalProductImage" alt=""></div>
+  <div class="product-modal-info">
+    <button class="modal-close" id="modalClose" aria-label="Close">×</button>
+    <div class="product-state" id="modalState"></div>
+    <h3 id="modalProductName"></h3>
+    <p class="modal-price" id="modalPrice"></p>
+    <p class="modal-desc" id="modalDesc"></p>
+
+    <div class="option-group" id="colourGroup">
+      <strong>COLOUR</strong>
+      <div class="option-row" id="colourOptions"></div>
+    </div>
+
+    <div class="option-group">
+      <strong>SIZE</strong>
+      <div class="option-row" id="sizeOptions">
+        <button class="option-btn" data-size="S">S</button>
+        <button class="option-btn" data-size="M">M</button>
+        <button class="option-btn" data-size="L">L</button>
+        <button class="option-btn" data-size="XL">XL</button>
+        <button class="option-btn" data-size="XXL">XXL</button>
+      </div>
+    </div>
+
+    <div id="notifyFields" style="display:none">
+      <div class="option-group">
+        <strong>EMAIL FOR DROP ALERT</strong>
+        <input class="notify-email" id="notifyEmail" type="email" placeholder="you@example.com">
+      </div>
+    </div>
+
+    <button class="primary-action" id="modalAction">ADD TO BAG</button>
+    <p class="modal-note" id="modalNote"></p>
+  </div>
+</section>
+
+<aside class="bag-drawer" id="bagDrawer" aria-label="Shopping bag">
+  <div class="bag-head"><strong>YOUR BAG</strong><button class="bag-close" id="bagClose" aria-label="Close bag">×</button></div>
+  <div class="bag-body" id="bagBody"></div>
+</aside>
+
+<button class="top-button" id="topButton" type="button" aria-label="Back to top">
+  <span>↑</span><span>TOP</span>
+</button>
+
+<div class="notice" id="notice"></div>
+<script src="baysixx.js"></script>
+</body>
+</html>
