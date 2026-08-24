@@ -141,8 +141,8 @@ main>section{border-bottom:1px solid var(--line)}
   display:grid;grid-template-columns:minmax(0,1.05fr) minmax(360px,.95fr);
 }
 .product-modal.open{opacity:1;visibility:visible;transform:translate(-50%,-50%) scale(1)}
-.product-modal-media{min-height:620px;background:#0a0a0a;border-right:1px solid #242424}
-.product-modal-media img{width:100%;height:100%;object-fit:cover}
+.product-modal-media{min-height:620px;background:#0a0a0a;border-right:1px solid #242424;display:grid;place-items:center;padding:12px}
+.product-modal-media img{width:100%;height:100%;object-fit:contain;object-position:center;background:#0a0a0a}
 .product-modal-info{padding:38px;position:relative}
 .modal-close{
   position:absolute;top:18px;right:18px;width:42px;height:42px;border:1px solid #333;background:#0d0d0d;
@@ -207,6 +207,107 @@ main>section{border-bottom:1px solid var(--line)}
   .product-modal h3{font-size:40px}
 }
 
+
+/* Mobile navigation */
+.mobile-menu-btn{
+  display:none;
+  width:46px;height:46px;
+  border:1px solid #333;
+  background:#090909;
+  color:#fff;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+  padding:0;
+}
+.mobile-menu-btn span{
+  display:block;
+  width:20px;height:2px;
+  background:#fff;
+  transition:transform .2s ease,opacity .2s ease;
+}
+.mobile-menu-btn.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.mobile-menu-btn.open span:nth-child(2){opacity:0}
+.mobile-menu-btn.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+.mobile-menu{
+  display:none;
+}
+
+@media(max-width:980px){
+  .header-wrap{
+    grid-template-columns:minmax(0,1fr) auto;
+    min-height:108px;
+    gap:14px;
+  }
+  .brand img{width:200px}
+  .nav{display:none}
+  .tools{gap:7px}
+  .tools .tool:not(.bag-tool){display:none}
+  .tool.bag-tool{width:46px;height:46px}
+  .mobile-menu-btn{display:flex}
+
+  .mobile-menu{
+    position:absolute;
+    left:0;right:0;top:100%;
+    z-index:140;
+    display:block;
+    background:rgba(5,5,5,.98);
+    border-top:1px solid #202020;
+    border-bottom:1px solid #2a2a2a;
+    padding:10px var(--pad) 22px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-8px);
+    transition:opacity .2s ease,transform .2s ease,visibility .2s;
+    box-shadow:0 24px 40px rgba(0,0,0,.35);
+  }
+  .mobile-menu.open{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+  }
+  .mobile-menu a,
+  .mobile-menu button{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:17px 2px;
+    border:0;
+    border-bottom:1px solid #1d1d1d;
+    background:none;
+    color:#fff;
+    text-decoration:none;
+    text-align:left;
+    font:inherit;
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:.055em;
+    cursor:pointer;
+  }
+  .mobile-menu a::after,
+  .mobile-menu button::after{
+    content:"→";
+    color:#777;
+    font-size:15px;
+  }
+  .mobile-menu .mobile-menu-utility{
+    color:#9b9b9b;
+    font-size:13px;
+  }
+  .mobile-menu a:last-child,
+  .mobile-menu button:last-child{border-bottom:0}
+}
+
+@media(max-width:430px){
+  .brand img{width:178px}
+  .header-wrap{min-height:98px}
+  .tool.bag-tool,.mobile-menu-btn{width:42px;height:42px}
+}
+
 </style>
 </head>
 <body id="top">
@@ -220,11 +321,22 @@ main>section{border-bottom:1px solid var(--line)}
       <a href="#about">ABOUT</a>
     </nav>
     <div class="tools">
-      <button class="tool" onclick="toast('SEARCH COMING SOON')">⌕</button>
-      <button class="tool" onclick="toast('ACCOUNT COMING SOON')">♙</button>
+      <button class="tool" onclick="toast('SEARCH COMING SOON')" aria-label="Search">⌕</button>
+      <button class="tool" onclick="toast('ACCOUNT COMING SOON')" aria-label="Account">♙</button>
       <button class="tool bag-tool" id="bagButton" aria-label="Open bag">▢<span class="bag-count" id="bagCount">0</span></button>
+      <button class="mobile-menu-btn" id="mobileMenuButton" type="button" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
     </div>
   </div>
+  <nav class="mobile-menu" id="mobileMenu" aria-label="Mobile navigation">
+    <a href="#top">HOME</a>
+    <a href="#shop">SHOP</a>
+    <a href="#coming">COMING SOON</a>
+    <a href="#about">ABOUT</a>
+    <button class="mobile-menu-utility" type="button" onclick="toast('SEARCH COMING SOON')">SEARCH</button>
+    <button class="mobile-menu-utility" type="button" onclick="toast('ACCOUNT COMING SOON')">ACCOUNT</button>
+  </nav>
 </header>
 
 <main>
@@ -549,6 +661,33 @@ function closeBag(){bagDrawer.classList.remove('open');if(!modal.classList.conta
 document.getElementById('bagButton').addEventListener('click',openBag);
 document.getElementById('bagClose').addEventListener('click',closeBag);
 updateBag();
+
+
+const mobileMenuButton=document.getElementById('mobileMenuButton');
+const mobileMenu=document.getElementById('mobileMenu');
+
+function closeMobileMenu(){
+  mobileMenu.classList.remove('open');
+  mobileMenuButton.classList.remove('open');
+  mobileMenuButton.setAttribute('aria-expanded','false');
+  mobileMenuButton.setAttribute('aria-label','Open menu');
+}
+function toggleMobileMenu(){
+  const willOpen=!mobileMenu.classList.contains('open');
+  mobileMenu.classList.toggle('open',willOpen);
+  mobileMenuButton.classList.toggle('open',willOpen);
+  mobileMenuButton.setAttribute('aria-expanded',String(willOpen));
+  mobileMenuButton.setAttribute('aria-label',willOpen?'Close menu':'Open menu');
+}
+mobileMenuButton.addEventListener('click',toggleMobileMenu);
+mobileMenu.querySelectorAll('a,button').forEach(item=>item.addEventListener('click',closeMobileMenu));
+window.addEventListener('resize',()=>{if(window.innerWidth>980)closeMobileMenu();});
+document.addEventListener('click',e=>{
+  if(window.innerWidth<=980 && mobileMenu.classList.contains('open') &&
+     !mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)){
+    closeMobileMenu();
+  }
+});
 
 </script>
 </body>
