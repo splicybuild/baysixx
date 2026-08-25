@@ -96,8 +96,27 @@ main>section{border-bottom:1px solid var(--line)}
   .hero-visual .frame{min-height:420px}
   .section,.about-copy,.footer{padding-left:var(--pad);padding-right:var(--pad)}
   .section-head{grid-template-columns:1fr}
-  .cards{grid-template-columns:1fr}
-  .coming .cards{grid-template-columns:1fr}
+  /* Mobile product carousels */
+  .cards,
+  .coming .cards{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x mandatory;
+    scroll-behavior:smooth;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-inline:contain;
+    padding:0 0 16px;
+    scrollbar-width:none;
+  }
+  .cards::-webkit-scrollbar,
+  .coming .cards::-webkit-scrollbar{display:none}
+  .cards .card,
+  .coming .cards .card{
+    flex:0 0 min(82vw,360px);
+    scroll-snap-align:start;
+  }
     .about{grid-template-columns:1fr}
   .about-visual{padding:0 var(--pad) 56px}
   .footer{grid-template-columns:1fr}
@@ -323,3 +342,10 @@ main>section{border-bottom:1px solid var(--line)}
   .page-only main>section:first-child .about-copy{padding-top:62px}
 }
 
+
+@media(max-width:430px){
+  .cards .card,
+  .coming .cards .card{
+    flex-basis:84vw;
+  }
+}
